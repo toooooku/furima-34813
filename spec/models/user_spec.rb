@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
       @user = FactoryBot.build(:user)
     end
 
-
+    context 'ユーザーが登録できる時' do
       it 'nicknameとemail、passwordとpassword_confirmationが存在すれば登録できる' do
         expect(@user).to be_valid
       end
@@ -15,6 +15,8 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = '000000'
         expect(@user).to be_valid
       end
+    end
+    context 'ユーザー登録ができない時' do  
       it 'nicknameが空では登録できない' do
         @user.nickname = ''
         @user.valid?
@@ -26,7 +28,9 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
       it 'emailに@がない場合登録できない' do
-        
+        @user.email = '@'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end  
       it 'passwordが空では登録できない' do
         @user.password = ''
@@ -39,13 +43,19 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'passwordが英語のみの場合登録できない' do
-
+        @user.password = 'english'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
       it 'passwordが数字のみの場合登録できない' do
-
+        @user.password = '000'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is too short (minimum is 6 characters)")
       end
       it 'passwordが全角の場合登録できない' do
-
+        @user.password = 'ゼンカク'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password is too short (minimum is 6 characters)")
       end  
       it 'family_nameが空では登録できない' do
         @user.family_name = ''
@@ -85,7 +95,19 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
-      it 'family_name,first_nameは全角での入力(漢字、ひらがな、カタカナ)がない場合は登録できない' do
+      it 'family_name,first_nameは全角での入力(漢字)がない場合は登録できない' do
+        @user.family_name = 'yamada'
+        @user.first_name= 'tarou'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.", "First name is invalid. Input full-width characters.")
+      end
+      it 'family_name,first_nameは全角での入力(ひらがな)がない場合は登録できない' do
+        @user.family_name = 'yamada'
+        @user.first_name= 'tarou'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.", "First name is invalid. Input full-width characters.")
+      end
+      it 'family_name,first_nameは全角での入力(カタカナ)がない場合は登録できない' do
         @user.family_name = 'yamada'
         @user.first_name= 'tarou'
         @user.valid?
@@ -97,5 +119,6 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Family name kana is invalid. Input full-width katakana characters.", "First name kana is invalid. Input full-width katakana characters.")
       end 
+    end  
   end
 end  
