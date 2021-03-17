@@ -14,6 +14,6 @@ class User < ApplicationRecord
     # カタカナのみ許可する
     validates :family_name_kana, :first_name_kana, format: {with: /\A[ァ-ヶー－]+\z/, message: "is invalid. Input full-width katakana characters."}
     validates :birth_day
-    validates :password, format: {with: /\A[a-z0-9]+\z/i, message: "is invalid. Input full-width characters."}
+    validates :password, format: {with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: "is invalid. Input full-width characters."}
   end
 end
