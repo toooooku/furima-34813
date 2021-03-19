@@ -82,6 +82,31 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
      end  
+     it 'category_idに「---」が表示されていると登録できない' do
+        @item.category_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+     end  
+     it 'status_idに「---」が表示されていると登録できない' do
+        @item.status_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status can't be blank")
+     end  
+     it 'cost_idに「---」が表示されていると登録できない' do
+        @item.cost_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Cost can't be blank")
+     end  
+     it 'day_idに「---」が表示されていると登録できない' do
+        @item.day_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Day can't be blank")
+     end  
+     it 'prefecture_idに「---」が表示されていると登録できない' do
+        @item.prefecture_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+     end  
    end
   end   
 end
