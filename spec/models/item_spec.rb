@@ -83,29 +83,29 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price Out of setting range")
      end  
      it 'category_idに「---」が表示されていると登録できない' do
-        @item.category_id = ''
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
      end  
      it 'status_idに「---」が表示されていると登録できない' do
-        @item.status_id = ''
+        @item.status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Status can't be blank")
+        expect(@item.errors.full_messages).to include("Status must be other than 1")
      end  
      it 'cost_idに「---」が表示されていると登録できない' do
-        @item.cost_id = ''
+        @item.cost_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Cost can't be blank")
+        expect(@item.errors.full_messages).to include("Cost must be other than 1")
      end  
      it 'day_idに「---」が表示されていると登録できない' do
-        @item.day_id = ''
+        @item.day_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Day can't be blank")
+        expect(@item.errors.full_messages).to include("Day must be other than 1")
      end  
      it 'prefecture_idに「---」が表示されていると登録できない' do
-        @item.prefecture_id = ''
+        @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
      end  
    end
   end   

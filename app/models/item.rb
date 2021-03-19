@@ -10,15 +10,17 @@ class Item < ApplicationRecord
   belongs_to :day
 
   with_options presence: true do
-    validates :name
-    validates :description
-    validates :category_id
-    validates :status_id
-    validates :cost_id
-    validates :day_id
-    validates :prefecture_id
-    validates :image
-    validates :price, format: {with: /\A[0-9]+\z/, message: "is invalid. Input full-width characters."}
-    validates :price, numericality: {greater_than: 299, less_than: 10000000, message: 'Out of setting range'}
+      validates :name
+      validates :description
+      validates :image
+      validates :price, format: {with: /\A[0-9]+\z/, message: "is invalid. Input full-width characters."}
+      validates :price, numericality: {greater_than: 299, less_than: 10000000, message: 'Out of setting range'}
   end
+  with_options presence: true do
+      validates :category_id, numericality: { other_than: 1 } 
+      validates :status_id, numericality: { other_than: 1 } 
+      validates :cost_id, numericality: { other_than: 1 } 
+      validates :day_id, numericality: { other_than: 1 } 
+      validates :prefecture_id, numericality: { other_than: 1 } 
+  end 
 end

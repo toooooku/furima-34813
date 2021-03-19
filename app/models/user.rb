@@ -6,8 +6,6 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :destinations
-  #extend ActiveHash::Associations::ActiveRecordExtensions
-  #belongs_to :prefecture
 
   with_options presence: true do
     validates :nickname
