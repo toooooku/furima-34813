@@ -15,10 +15,10 @@
 
 ### Association
 
-- has_many :products
+- has_many :items
 - has_many :destinations
 
-## products テーブル
+## items テーブル
 
 | Column        | Type       | Options                       |
 | ------------- | ---------- | ----------------------------- |
@@ -41,13 +41,13 @@
 
 | Column             | Type       | Options                      |
 | ------------------ | ---------- | ---------------------------- |
-| product_id         | integer    | null:false foreign_key :true |
+| item_id            | integer    | null:false foreign_key :true |
 | user_id            | integer    | null:false foreign_key :true |
 
 ### Association
 
 - belongs_to :user
-- has_one :product
+- has_one :item
 - has_one :shipping_address
 
 ## shipping_addresses テーブル
