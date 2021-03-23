@@ -1,5 +1,5 @@
 class DestinationsController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: [:new, :index]
 
   def index
     @item = Item.find(params[:item_id])
@@ -25,5 +25,5 @@ class DestinationsController < ApplicationController
   def destination_params
     params.require(:destination_shipping_address).permit(:zip_code, :prefecture_id, :city, :adress, :building_name, :phone_number, :destination_id, :item_id).merge(user_id: current_user.id)
   end
-
+ 
 end
