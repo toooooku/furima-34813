@@ -13,6 +13,9 @@ RSpec.describe DestinationShippingAddress, type: :model do
       it '全て入力があれば登録できる' do
         expect(@destination_shipping_address).to be_valid
       end
+      it 'building_nameの入力がなくても登録できる' do
+        expect(@destination_shipping_address).to be_valid
+      end
     end
     context '購入できない時' do
       it "zip_codeが空では登録できないこと" do
