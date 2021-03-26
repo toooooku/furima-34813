@@ -48,10 +48,30 @@ RSpec.describe DestinationShippingAddress, type: :model do
         @destination_shipping_address.valid?
         expect(@destination_shipping_address.errors.full_messages).to include("Phone number can't be blank")
       end
+      it "phone_numberが12桁以上では登録できないこと" do
+        @destination_shipping_address.phone_number= '090123456789'
+        @destination_shipping_address.valid?
+        expect(@destination_shipping_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it "phone_numberが英数字混合では登録できないこと" do
+        @destination_shipping_address.phone_number= 'phone123456'
+        @destination_shipping_address.valid?
+        expect(@destination_shipping_address.errors.full_messages).to include("Phone number is invalid")
+      end
       it "tokenが空では登録できないこと" do
         @destination_shipping_address.token = nil
         @destination_shipping_address.valid?
         expect(@destination_shipping_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it "item_idが空では登録できないこと" do
+        @destination_shipping_address.item_id = ''
+        @destination_shipping_address.valid?
+        expect(@destination_shipping_address.errors.full_messages).to include("Item can't be blank")
+      end
+      it "user_idが空では登録できないこと" do
+        @destination_shipping_address.user_id = ''
+        @destination_shipping_address.valid?
+        expect(@destination_shipping_address.errors.full_messages).to include("User can't be blank")
       end
     end
   end

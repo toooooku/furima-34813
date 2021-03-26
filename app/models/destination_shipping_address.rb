@@ -4,13 +4,14 @@ class DestinationShippingAddress
 
   with_options presence: true do
     validates :user_id
+    validates :item_id
     validates :zip_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city
     validates :adress
     validates :token
   end
     validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
-    VALID_PHONE_REGEX = /\d{11}\z/
+    VALID_PHONE_REGEX = /\A\d{,11}\z/
     validates :phone_number, presence: true, format: { with: VALID_PHONE_REGEX }
 
   def save
