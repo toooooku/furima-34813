@@ -1,9 +1,12 @@
 class DestinationsController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: [:index, :new, :create]
 
   def index
     @item = Item.find(params[:item_id])
     @destination_shipping_address = DestinationShippingAddress.new
+    if current_user == @item.user
+       redirect_to root_path
+      end
   end
 
   def new
