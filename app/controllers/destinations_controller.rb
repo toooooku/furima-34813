@@ -2,11 +2,11 @@ class DestinationsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @destination_shipping_address = DestinationShippingAddress.new
-    if current_user == @item.user
+    @item = Item.find(params[:item_id])
+    if current_user == @item.user || @item.destinations.present? #購入履歴が存在する
        redirect_to root_path
-      end
+    end
   end
 
   def new
